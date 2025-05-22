@@ -144,7 +144,17 @@ const loginUser = asyncHandler(async (req, res) => {
 
 
 const logoutUser = asyncHandler(async(req, res) => {
-  User.findById()
+  User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: undefinded
+      }
+    },
+    {
+      new: true
+    }
+  )
 })
 
 export { registerUser, loginUser, logoutUser };
