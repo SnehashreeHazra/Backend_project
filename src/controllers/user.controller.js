@@ -139,7 +139,12 @@ const loginUser = asyncHandler(async (req, res) => {
     .status(200)
     .cookie('accesToken', accessToken, options)
     .cooke('refreshToken', refreshToken, options)
-    .json(new ApiResponse(200, { user: loggedInUser, accessToken }));
+    .json(new ApiResponse(200, { user: loggedInUser, accessToken }, "User Logged in successfully"));
 });
 
-export { registerUser, loginUser };
+
+const logoutUser = asyncHandler(async(req, res) => {
+  User.findById()
+})
+
+export { registerUser, loginUser, logoutUser };
