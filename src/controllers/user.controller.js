@@ -13,7 +13,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
-    return { accessToken, refreshToken }
+    return { accessToken, refreshToken };
   } catch (error) {
     throw new ApiError(
       500,
@@ -122,16 +122,24 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, 'Invalid User Credentials');
   }
 
-  const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
 
-  const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+  const loggedInUser = await User.findById(user._id).select(
+    '-password -refreshToken'
+  );
 
   const options = {
     httpOnly: true,
-    secure: true
-  }
+    secure: true,
+  };
 
-  return res.status(200).cookie("accesToken", accessToken, options).cooke("refreshToken", refreshToken, options).json(new ApiResponse(200, {user: loggedInUser, accessToken, }))
+  return res
+    .status(200)
+    .cookie('accesToken', accessToken, options)
+    .cooke('refreshToken', refreshToken, options)
+    .json(new ApiResponse(200, { user: loggedInUser, accessToken }));
 });
 
 export { registerUser, loginUser };
