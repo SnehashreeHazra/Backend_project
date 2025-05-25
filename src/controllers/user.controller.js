@@ -3,6 +3,7 @@ import { ApiError } from '../utils/ApiError.js';
 import { User } from '../models/user.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import { JsonWebTokenError as jwt } from 'jsonwebtoken';
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -172,12 +173,18 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, 'User logged out'));
 });
 
-const refreshAccessToken = asyncHandler(async(req, res) => {
-  const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  const incomingRefreshToken =
+    req.cookies.refreshToken || req.body.refreshToken;
 
   if (incomingRefreshToken) {
-    throw new ApiError(401, 'unauthorized request')
+    throw new ApiError(401, 'unauthorized request');
   }
-})
+
+  const decodedToken = jwt.verify(
+    incomingRefreshToken,
+    process.env.ACCESS_TOKEN_SECRET
+  );
+});
 
 export { registerUser, loginUser, logoutUser };
