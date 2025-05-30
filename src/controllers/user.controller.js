@@ -250,6 +250,12 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
   if(!fullName || !email) {
     throw new ApiResponse(400, "All fields are required")
   }
+
+  User.findByIdAndUpdate(req.user?.id,{},{
+    $set: {
+      fullName, email: email
+    }
+  }, {new:true})
 })
 
 export {
