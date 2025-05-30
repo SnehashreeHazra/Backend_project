@@ -244,6 +244,10 @@ const getCurrentHandler = asyncHandler(async (req, res) => {
   return res.status(200).json(200, 'Current user fetched succesfully');
 });
 
+const updateAccountDetails = asyncHandler(async (req, res) => {
+  const {fullName, email} = req.body
+})
+
 export {
   registerUser,
   loginUser,
