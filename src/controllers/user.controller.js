@@ -242,4 +242,4 @@ const getCurrentHandler = asyncHandler(async (req, res) => {
   return res.status(200).json(200, "Current user fetched succesfully")
 })
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken };
+export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentHandler };
