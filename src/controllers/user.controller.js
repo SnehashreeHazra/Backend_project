@@ -267,4 +267,5 @@ export {
   refreshAccessToken,
   changeCurrentPassword,
   getCurrentHandler,
+  updateAccountDetails
 };
