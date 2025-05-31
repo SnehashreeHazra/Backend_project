@@ -272,6 +272,10 @@ const updatedUserAvatar = asyncHandler(async (req, res) => {
   if (!avatar.url) {
     throw new ApiError(400, "Error while uploading on avatar")
   }
+
+  await User.findByIdAndUpdate(
+    req.user?._id, {}, {new: true}
+  ).select("-password")
 })
 
 export {
