@@ -278,6 +278,24 @@ const updatedUserAvatar = asyncHandler(async (req, res) => {
   ).select("-password")
 })
 
+const updatedUserCoverImage = asyncHandler(async (req, res) => {
+  const coverImageLocalPath = req.file?.path
+
+  if (!avatarLocalPath) {
+    throw new ApiError(400, "Avatar file is missing")
+  }
+
+  const avatar = await uploadOnCloudinary(avatarLocalPath)
+
+  if (!avatar.url) {
+    throw new ApiError(400, "Error while uploading on avatar")
+  }
+
+  await User.findByIdAndUpdate(
+    req.user?._id, { $set: {avatar:avatar.url}}, {new: true}
+  ).select("-password")
+})
+
 export {
   registerUser,
   loginUser,
