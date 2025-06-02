@@ -291,8 +291,8 @@ const updatedUserCoverImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error while uploading on avatar")
   }
 
-  await User.findByIdAndUpdate(
-    req.user?._id, { $set: {avatar:avatar.url}}, {new: true}
+  const user = await User.findByIdAndUpdate(
+    req.user?._id, { $set: {coverImage:coverImage.url}}, {new: true}
   ).select("-password")
 })
 
