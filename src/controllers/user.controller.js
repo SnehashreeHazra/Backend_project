@@ -325,4 +325,5 @@ export {
   getCurrentHandler,
   updateAccountDetails,
   updatedUserAvatar,
+  updatedUserCoverImage
 };
