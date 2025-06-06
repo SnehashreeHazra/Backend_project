@@ -241,7 +241,9 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentHandler = asyncHandler(async (req, res) => {
-  return res.status(200).json(new ApiResponse(200, 'Current user fetched succesfully'));
+  return res
+    .status(200)
+    .json(new ApiResponse(200, 'Current user fetched succesfully'));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -325,5 +327,5 @@ export {
   getCurrentHandler,
   updateAccountDetails,
   updatedUserAvatar,
-  updatedUserCoverImage
+  updatedUserCoverImage,
 };
