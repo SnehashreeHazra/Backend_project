@@ -270,7 +270,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, 'Account details updated successfully'));
 });
 
-const updatedUserAvatar = asyncHandler(async (req, res) => {
+const updatedUserAvatar = asyncHandler( async (req, res) => {
   const avatarLocalPath = req.file?.path;
 
   if (!avatarLocalPath) {
